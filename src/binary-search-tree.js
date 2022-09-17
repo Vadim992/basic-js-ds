@@ -91,6 +91,7 @@ class BinarySearchTree {
 
   remove(data) {
     if (this.has(data)) {
+      
      function getMinRight(node) {
        
       let cloneNode = node;
