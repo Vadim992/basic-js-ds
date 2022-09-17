@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError, ListNode } = require('../extensions/index.js');
 
 // const { ListNode } = require('../extensions/list-node.js');
 
@@ -22,11 +22,64 @@ const { NotImplementedError } = require('../extensions/index.js');
  *   }
  * }
  */
-function removeKFromList(/* l, k */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
-}
+// Решение ерез массивж
+// function removeKFromList(l, k) {
+//   let arr = [];
+//   let clone = Object.assign(l);
+//   while (clone !== null) {
+//     arr.push(clone.value);
+//     clone = clone.next;
+//   }
 
+//   for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === k) {
+//       arr.splice(i,1);
+//       i--;
+//     } 
+//   }
+// let obj;
+// let buf;
+// arr.forEach((item,index) => {
+//   if (index === 0) {
+//     obj = new ListNode(item);
+//     buf = obj;
+//   } else {
+//     buf.next = new ListNode(item);
+//     buf = buf.next;
+//   }
+// });
+// l = obj
+// return l;
+//   // throw new NotImplementedError('Not implemented');
+//   // remove line with error and write your code here
+// }
+function removeKFromList(l, k) {
+  let obj = l;
+ 
+  while (obj) {
+    if (obj.value === k) {
+        let clone = l;
+
+       while (clone) {
+         if (JSON.stringify(clone) === JSON.stringify(obj)) {
+           l = obj.next;
+           break;
+         } else if (JSON.stringify(clone.next) === JSON.stringify(obj)) {
+            if (!clone.next) {
+              clone.next = null;
+            } else {
+              clone.next = obj.next;
+            }
+           break;
+         } else {
+           clone = clone.next;
+         }
+      }
+    }
+    obj = obj.next;
+  }
+  return l;
+}
 module.exports = {
   removeKFromList
 };
